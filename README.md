@@ -1,80 +1,108 @@
 <div align="center">
-  <img src="logo.png" alt="VibeCode Security Inspector Logo" width="220" />
+  <img src="logo.png" alt="VibeCode Security Inspector Logo" width="180" />
 
-  <h1>🛡️ VibeCode Security Inspector 🛡️</h1>
+  <br>
+
+  <h1>🛡️ VibeCode Security Inspector</h1>
   
-  <p><strong>The ultimate agent skill to lock down vibe-coded apps across all major AI assistants.</strong></p>
+  <p><strong>Stop your AI from shipping vulnerabilities.</strong><br>The first agentic security skill designed specifically to audit "vibe-coded" applications.</p>
 
   <p>
+    <a href="https://github.com/AbhayPatial/vibecode-security-inspector-skill"><img src="https://img.shields.io/badge/Status-Active-success.svg?style=for-the-badge" alt="Status" /></a>
     <img src="https://img.shields.io/badge/Security-Vibe--Coded-DC2626?style=for-the-badge&logo=shield" alt="Security" />
     <img src="https://img.shields.io/badge/License-MIT-blue.svg?style=for-the-badge" alt="MIT License" />
-    <img src="https://img.shields.io/badge/Built_By-Abhay_Patial-indigo?style=for-the-badge" alt="Author" />
   </p>
 </div>
 
 ---
 
-## ⚡ What is this?
+## 🛑 The Problem: AI Codes Fast, but Fails at Security
+AI assistants (Cursor, Windsurf, Copilot, Claude) are magical for rapid feature development. We call this **"Vibe Coding"**. But underneath the hood, AI consistently hallucinates security fundamentals.
 
-AI coding assistants are magical. They build features fast, but they consistently hallucinate **security fundamentals**. They will hardcode your secrets, bypass row-level security, trust client-submitted prices, and leak data via Server Components. 
+They will:
+- ❌ Hardcode your API keys in the client bundle.
+- ❌ Bypass database Row-Level Security (RLS).
+- ❌ Trust client-submitted prices in Stripe checkouts.
+- ❌ Leak massive amounts of database records via React Server Components.
 
-**VibeCode Security Inspector** is a custom set of "skills" and instructions that you can plug into your favorite AI code assistant to catch these patterns *before* they make it to production.
-
-## 🚀 Supported AI Assistants
-
-We've added native support for all the major players. Whether you're running terminal agents or IDEs, we've got you covered:
-
-- 🔵 **Google Gemini & Antigravity**
-- 🟢 **OpenAI Codex**
-- 🟠 **Anthropic Claude Code**
-- 🟣 **Cursor IDE**
-- 🌊 **Windsurf Editor**
-- 🐙 **GitHub Copilot**
-
-## 📦 Installation
-
-### For Terminal Agents (Claude Code, Codex, Antigravity, Gemini CLI)
-
-```bash
-npx skills add https://github.com/AbhayPatial/vibecode-security-inspector-skill --skill vibecode-security-inspector
-```
-*(Requires Node.js installed)*
-
-### For IDEs (Cursor, Windsurf, GitHub Copilot)
-
-Clone this repository and copy the `vibecode-security-inspector` folder directly into your workspace.
-
-```bash
-git clone https://github.com/AbhayPatial/vibecode-security-inspector-skill.git
-cp -r vibecode-security-inspector-skill/vibecode-security-inspector/ .cursor/rules/ # Or equivalent for your IDE
-```
-Then, prompt your IDE: *"@workspace Run the VibeCode Security Inspector audit on this project."*
-
-## 🔍 The Hitlist: What We Catch
-
-We specifically target the massive blind spots that major AI assistants miss when "vibe coding" modern web apps. 
-
-| 🛡️ Category | 🚨 What It Catches |
-|-------------|-------------------|
-| **Server Components (RSC)** | 🆕 Leaking database records in Next.js Server Components, over-fetching data. |
-| **Server Actions** | 🆕 Unprotected `"use server"` endpoints missing authorization checks. |
-| **Secrets & Env Vars** | Hardcoded API keys, secrets exposed in `NEXT_PUBLIC_`/`VITE_` vars. |
-| **Database Security** | Disabled Supabase RLS, `USING (true)` policies, Firebase `allow: if true` rules. |
-| **Auth & Authorization** | Trusting `jwt.decode()`, middleware-only auth, tokens in localStorage. |
-| **Payments** | Client-submitted prices via Stripe, missing webhook signature verification. |
-| **Mobile** | API keys in Expo JS bundle, `AsyncStorage` for tokens, unsafe deep links. |
-| **AI / LLM** | Exposed OpenAI keys, missing token usage caps, prompt injection vulnerabilities. |
-| **Data Access** | SQL injection, Prisma `$queryRawUnsafe`, mass assignment flaws. |
-
-## 💡 How It Works
-
-1. **Context Loading**: When you trigger the skill or mention security, your AI assistant reads the `SKILL.md` manifest.
-2. **Dynamic References**: It cross-references your tech stack. If you use Next.js, it loads the RSC and Server Action security rules. If you use Stripe, it loads payment rules.
-3. **Audit Execution**: The AI reviews your codebase strictly against these ground-truth rules instead of relying on its flawed training data.
+**VibeCode Security Inspector** is a plug-and-play skill that gives your AI assistant the strict ground-truth context it needs to audit its own code and catch these exact patterns *before* you deploy.
 
 ---
 
+## ⚡ Supported Platforms
+
+We natively integrate as a "Rule" or "Skill" across all major AI coding environments:
+
+- 🟣 **Cursor** 
+- 🌊 **Windsurf**
+- 🔵 **Antigravity IDE**
+- 🟢 **Codex App**
+- 🟠 **Claude Code App**
+- 🐙 **GitHub Copilot**
+- 🤖 **Gemini CLI**
+
+---
+
+## 🚀 One-Minute Quick Start
+
+### 1️⃣ For IDEs & Desktop Apps (Cursor, Windsurf, Antigravity, Codex)
+The most robust way to install is to drop the rules directly into your workspace.
+
+```bash
+# 1. Clone the repository into your project
+git clone https://github.com/AbhayPatial/vibecode-security-inspector-skill.git
+
+# 2. Copy the inspector rules into your IDE's context folder
+cp -r vibecode-security-inspector-skill/vibecode-security-inspector/ .cursor/rules/
+# (Use .windsurf/rules/ for Windsurf or .agents/skills/ for Antigravity/Codex)
+```
+> **Try it out:** Open your AI chat and type: *"@workspace Run the VibeCode Security Inspector audit on this codebase."*
+
+### 2️⃣ For Terminal CLIs & Agent Apps
+If you are using a terminal wrapper (like Claude Code CLI) that supports the `npx skills` command, it is the fastest way:
+```bash
+npx skills add https://github.com/AbhayPatial/vibecode-security-inspector-skill --skill vibecode-security-inspector
+```
+
+**Don't have NPM/Node.js installed?**
+No problem! You can manually copy the folder into your agent's hidden configuration directory just like you would for an IDE:
+```bash
+git clone https://github.com/AbhayPatial/vibecode-security-inspector-skill.git
+
+# For Claude Code / Standalone Apps:
+cp -r vibecode-security-inspector-skill/vibecode-security-inspector/ .claude/skills/
+```
+
+---
+
+## 🎯 The Vulnerability Hitlist
+We aggressively target the blind spots that AI assistants usually miss.
+
+| 🛡️ Audit Category | 🚨 What We Catch |
+|-------------------|------------------|
+| **Next.js & RSCs** | 🆕 Over-fetched database queries leaking into the DOM, unprotected Server Actions (`"use server"`). |
+| **Secrets & Env** | API keys exposed in `NEXT_PUBLIC_` or `VITE_` prefixes, `.env` files committed to Git. |
+| **Database Access**| Supabase RLS disabled, missing `WITH CHECK` clauses, Firebase `allow: if true` disasters. |
+| **Auth** | Trusting `jwt.decode()`, tokens stored in `localStorage`, lack of server-side validation. |
+| **Payments** | Client-submitted prices directly sent to Stripe, missing webhook signature verification. |
+| **Mobile Apps** | Expo JS bundle secrets, `AsyncStorage` token leaks, unsafe deep-link parsing. |
+| **AI LLM Calls** | Uncapped token usage, missing prompt injection guards, exposed OpenAI keys. |
+
+---
+
+## 🧠 How It Works Behind the Scenes
+Instead of relying on the AI's standard training data (which is often outdated or contradictory regarding security), the Inspector forces the AI to read from our **curated Markdown reference files**. 
+
+When you trigger a security audit, the AI cross-references your tech stack (e.g., Next.js + Supabase) and only loads the exact security rules tailored for that stack. No bloated context windows, just surgical precision.
+
+---
+
+## 🤝 Join the Movement
+We are building the ultimate open-source defense against AI-generated security flaws. If you have discovered a new vulnerability that Cursor, Copilot, or Claude keeps writing, **we want it.**
+
+Please see our [CONTRIBUTING.md](CONTRIBUTING.md) to submit a PR!
+
 <div align="center">
-  <p>Contributions, corrections, and improvements are very welcome!</p>
-  <p>Created with 💻 by <b>Abhay Patial</b></p>
+  <br>
+  <p>Built for the modern developer by <b>Abhay Patial</b></p>
 </div>
