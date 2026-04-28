@@ -45,17 +45,28 @@ We natively integrate as a "Rule" or "Skill" across all major AI coding environm
 
 ## 🚀 One-Minute Quick Start
 
-### 1️⃣ For IDEs & Desktop Apps (Cursor, Windsurf, Antigravity, Codex)
-The most robust way to install is to drop the rules directly into your workspace.
+### 1️⃣ For IDEs & Desktop Apps (Cursor, Windsurf, Copilot, Antigravity, Codex)
+The most robust way to install is to drop the rules directly into your workspace's context folder.
 
 ```bash
 # 1. Clone the repository into your project
 git clone https://github.com/AbhayPatial/vibecode-security-inspector-skill.git
 
-# 2. Copy the inspector rules into your IDE's context folder
-cp -r vibecode-security-inspector-skill/vibecode-security-inspector/ .cursor/rules/
-# (Use .windsurf/rules/ for Windsurf or .agents/skills/ for Antigravity/Codex)
+# 2. Copy the inspector into your IDE's specific rules folder:
+
+# For Cursor:
+mkdir -p .cursor/rules && cp -r vibecode-security-inspector-skill/vibecode-security-inspector/* .cursor/rules/
+
+# For Windsurf:
+mkdir -p .windsurf/rules && cp -r vibecode-security-inspector-skill/vibecode-security-inspector/* .windsurf/rules/
+
+# For GitHub Copilot:
+mkdir -p .github && cat vibecode-security-inspector-skill/vibecode-security-inspector/SKILL.md >> .github/copilot-instructions.md
+
+# For Antigravity & Codex (Gemini/OpenAI apps):
+mkdir -p .agents/skills && cp -r vibecode-security-inspector-skill/vibecode-security-inspector/ .agents/skills/
 ```
+*(No Git installed? Just click **Code > Download ZIP** on GitHub, extract it, and drag the files into the respective folders above!)*
 > **Try it out:** Open your AI chat and type: *"@workspace Run the VibeCode Security Inspector audit on this codebase."*
 
 ### 2️⃣ For Terminal CLIs & Agent Apps
@@ -64,14 +75,8 @@ If you are using a terminal wrapper (like Claude Code CLI) that supports the `np
 npx skills add https://github.com/AbhayPatial/vibecode-security-inspector-skill --skill vibecode-security-inspector
 ```
 
-**Don't have NPM/Node.js installed?**
-No problem! You can manually copy the folder into your agent's hidden configuration directory just like you would for an IDE:
-```bash
-git clone https://github.com/AbhayPatial/vibecode-security-inspector-skill.git
-
-# For Claude Code / Standalone Apps:
-cp -r vibecode-security-inspector-skill/vibecode-security-inspector/ .claude/skills/
-```
+**Don't have NPM or Git installed?**
+No problem! You can download the `.zip` file directly from GitHub, extract it, and manually drag the `vibecode-security-inspector` folder into your agent's hidden configuration directory (like `.claude/skills/`).
 
 ---
 
@@ -97,6 +102,17 @@ When you trigger a security audit, the AI cross-references your tech stack (e.g.
 
 ---
 
+## 🛠️ Troubleshooting & Skill Activation
+
+If your AI assistant seems to be ignoring the security rules, check these common scenarios:
+
+- **Permission Denied (Windows/Linux):** If `npx skills add` throws an `EPERM` or Execution Policy error on Windows, ensure you have execution policies enabled (`Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned`) or just use the manual ZIP fallback.
+- **Cursor / Windsurf Not Reading Rules:** Make sure you copied the *contents* of the folder into `.cursor/rules/` (not just the folder itself). If the AI still hallucinates, explicitly `@` mention the `SKILL.md` file in your prompt to force it into the context window.
+- **Copilot Ignorance:** GitHub Copilot relies entirely on `.github/copilot-instructions.md`. Make sure the `SKILL.md` contents were successfully appended to that specific file.
+- **Antigravity / Codex (Gemini & OpenAI Apps):** If the skill isn't automatically firing, explicitly prompt the agent with: *"Please strictly follow the security rules located in `.agents/skills/vibecode-security-inspector/SKILL.md` before generating any code."*
+
+---
+
 ## 🤝 Join the Movement
 We are building the ultimate open-source defense against AI-generated security flaws. If you have discovered a new vulnerability that Cursor, Copilot, or Claude keeps writing, **we want it.**
 
@@ -104,5 +120,5 @@ Please see our [CONTRIBUTING.md](CONTRIBUTING.md) to submit a PR!
 
 <div align="center">
   <br>
-  <p>Built for the modern developer by <b>Abhay Patial</b></p>
+  <p>Built for the modern developers by <b>Abhay Patial</b></p>
 </div>
