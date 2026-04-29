@@ -40,6 +40,8 @@ We natively integrate as a "Rule" or "Skill" across all major AI coding environm
 - 🟠 **Claude Code App**
 - 🐙 **GitHub Copilot**
 - 🤖 **Gemini CLI**
+- ⚡ **Bolt.new & v0.dev**
+- ❤️ **Lovable, Replit & StackBlitz**
 
 ---
 
@@ -78,6 +80,13 @@ npx skills add https://github.com/AbhayPatial/vibecode-security-inspector-skill 
 **Don't have NPM or Git installed?**
 No problem! You can download the `.zip` file directly from GitHub, extract it, and manually drag the `vibecode-security-inspector` folder into your agent's hidden configuration directory (like `.claude/skills/`).
 
+### 3️⃣ For Web-Hosted Vibe Platforms (Bolt.new, Lovable, v0.dev, Replit)
+Web-hosted platforms often don't have traditional terminal setups exposed by default.
+- **Bolt.new:** Create a `.bolt/prompt` file in your workspace and paste the contents of `SKILL.md` into it.
+- **Lovable:** Paste the contents of `SKILL.md` into the "Custom Instructions" or project context settings.
+- **v0.dev:** Append the `SKILL.md` contents to your initial prompt when generating data-driven blocks.
+- **Replit / CodeSandbox:** Drop the `vibecode-security-inspector` folder into your project root and instruct the AI agent to read `SKILL.md` before making changes.
+
 ---
 
 ## 🎯 The Vulnerability Hitlist
@@ -92,6 +101,7 @@ We aggressively target the blind spots that AI assistants usually miss.
 | **Payments** | Client-submitted prices directly sent to Stripe, missing webhook signature verification. |
 | **Mobile Apps** | Expo JS bundle secrets, `AsyncStorage` token leaks, unsafe deep-link parsing. |
 | **AI LLM Calls** | Uncapped token usage, missing prompt injection guards, exposed OpenAI keys. |
+| **Web-Hosted IDEs**| Public workspace secret leaks, unauthenticated preview URLs exposing admin tools, missing `.gitignore` entries. |
 
 ---
 
